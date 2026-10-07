@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para Ana, mi fiu fiu 💌</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fff1f5;--card:#ffffff;--ink:#4a2336;--soft:#a05b78;--acc:#e0457b;--acc2:#ff8fb1;--line:#f7c9d8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1020;--card:#3b1a2e;--ink:#ffe8f0;--soft:#e7a6bf;--acc:#ff6b9d;--acc2:#c2335f;--line:#5b2a45}}
+:root[data-theme="dark"]{--bg:#2a1020;--card:#3b1a2e;--ink:#ffe8f0;--soft:#e7a6bf;--acc:#ff6b9d;--acc2:#c2335f;--line:#5b2a45}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;min-height:100vh;overflow-x:hidden}
+.wrap{max-width:560px;margin:0 auto;padding:28px 18px 60px;position:relative;z-index:1}
+h1{font-size:2rem;text-align:center;margin:10px 0 4px;color:var(--acc)}
+.sub{text-align:center;color:var(--soft);margin:0 0 24px;font-style:italic}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;margin:14px 0;transition:.4s}
+.card.locked{opacity:.55}
+.card.open{border-color:var(--acc)}
+.head{display:flex;align-items:center;gap:10px;font-weight:bold;color:var(--acc)}
+.lock{font-size:1.5rem}
+.q{margin:12px 0;line-height:1.5}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+input{flex:1;min-width:140px;padding:11px 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font-size:1rem;font-family:inherit}
+input:focus{outline:none;border-color:var(--acc)}
+button{padding:11px 16px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-size:1rem;cursor:pointer;font-family:inherit}
+button.ghost{background:transparent;color:var(--soft);border:2px solid var(--line)}
+.msg{min-height:1.3em;margin-top:8px;font-size:.95rem;color:var(--soft)}
+.hint{font-style:italic}
+.done{color:var(--acc);font-weight:bold}
+.shake{animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#final{display:none;text-align:center}
+#final.show{display:block;animation:fade 1.2s}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.letter{text-align:left;line-height:1.75;font-size:1.05rem;background:var(--card);border:2px solid var(--acc);border-radius:18px;padding:22px;margin:16px 0}
+.letter p{margin:0 0 14px}
+.sign{text-align:right;color:var(--acc);font-style:italic}
+.days{font-size:2.4rem;color:var(--acc);font-weight:bold;margin:0}
+.prog{text-align:center;color:var(--soft);font-size:.9rem}
+.heart{position:fixed;bottom:-30px;font-size:20px;opacity:.5;animation:up linear forwards;pointer-events:none;z-index:0}
+@keyframes up{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Para Ana 💌</h1>
+  <p class="sub">Mi fiu fiu, esta carta está bajo llave. Resuelve los 5 acertijos para abrirla.</p>
+  <p class="prog" id="prog">0 de 5 candados abiertos</p>
+  <div id="list"></div>
+
+  <div id="final">
+    <p class="prog">Todos los candados abiertos 🔓</p>
+    <div class="letter">
+      <p>Feliz 10 meses amor de mi vida, eres lo más lindo que me ha pasado en mucho tiempo, las palabras no me alcanzan para decirte lo mucho que te amo y lo mucho que me encanta ser tu novia.</p>
+      <p>Quiero hacerte saber que amo cada parte de ti, que cada que despierto mi primer pensamiento eres tú, que amo cuando pasan las horas y sigues siendo mi pensamiento favorito, te amo cuando te extraño, te amo aun así estés lejos sin poder tocarte o verte a los ojos. Realmente amo todo de ti y espero que eso siempre lo tengas presente.</p>
+      <p>Gracias por todos estos meses a mi lado así sea de lejitos jsjs, por compartirme poco a poco tu vida y tus pensamientos. Quiero seguir avanzando contigo e ir mejorando para así lograr que nuestra relación llegue mucho más lejos de la forma más sana y linda posible.</p>
+      <p>Te amo infinitamente mi amor, Feliz 10 meses &lt;3 besitos.</p>
+      <p class="sign">Tu fichu fichu 💗<br>Mariana</p>
+    </div>
+    <p class="sub" style="margin-bottom:0">Llevamos juntas</p>
+    <p class="days" id="days">0</p>
+    <p class="sub">días, desde el 8 de diciembre de 2025.<br>Y cada día es uno menos para abrazarte 🤍</p>
+  </div>
+</div>
+
+<script>
+var R=[
+ {q:"Fue un mundo lleno de avatares, donde dos personas reales se encontraron detrás de la pantalla. ¿Cómo se llama ese lugar donde nos conocimos?",a:["imvu"],h:"Son cuatro letras y empieza con I."},
+ {q:"Nuestra historia empezó un día de noviembre. ¿Qué número de día nos conocimos? (solo el número)",a:["22","veintidos"],h:"Dos veces el mismo número... y es menor que 30."},
+ {q:"Yo soy tu fichu fichu. ¿Cuál es tu apodo, mi amor?",a:["fiufiu","fiu fiu"],h:"Es como un silbidito, repetido dos veces."},
+ {q:"Un día de diciembre de 2025 nos volvimos novias. ¿Qué día fue? (solo el número)",a:["8","ocho"],h:"Es un solo dígito, el mismo que parece dos aros."},
+ {q:"Completa: «Gracias por estar a mi lado así sea de ______ jsjs»",a:["lejitos","lejos"],h:"Es lo que nos separa, pero dicho con cariño."}
+];
+var open=0;
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g,"").trim()}
+function sq(s){return s.replace(/ /g,"")}
+function render(){
+ var L=document.getElementById("list");L.innerHTML="";
+ R.forEach(function(r,i){
+  var d=document.createElement("div");
+  var state=i<open?"open":(i==open?"cur":"locked");
+  d.className="card "+(state=="open"?"open":state=="locked"?"locked":"");
+  var h='<div class="head"><span class="lock">'+(state=="open"?"🔓":"🔒")+'</span>Candado '+(i+1)+'</div>';
+  if(state=="open"){h+='<p class="q done">✓ '+r.a[0].toUpperCase()+'</p>'}
+  else if(state=="cur"){
+   h+='<p class="q">'+r.q+'</p><div class="row"><input id="in" placeholder="Tu respuesta..." autocomplete="off"><button id="go">Abrir</button><button class="ghost" id="hb">Pista</button></div><div class="msg" id="msg"></div>';
+  }else{h+='<p class="q">Resuelve el anterior primero...</p>'}
+  d.innerHTML=h;L.appendChild(d);
+ });
+ document.getElementById("prog").textContent=open+" de 5 candados abiertos";
+ var go=document.getElementById("go");
+ if(go){
+  var inp=document.getElementById("in");
+  go.onclick=check;inp.onkeydown=function(e){if(e.key=="Enter")check()};
+  document.getElementById("hb").onclick=function(){var m=document.getElementById("msg");m.className="msg hint";m.textContent="💡 "+R[open].h};
+ }
+}
+function check(){
+ var v=norm(document.getElementById("in").value),m=document.getElementById("msg");
+ var ok=R[open].a.some(function(x){return sq(v)==sq(x)});
+ if(ok){open++;hearts(10);render();if(open==5)finish()}
+ else{var c=document.getElementById("in").parentNode.parentNode;c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");m.className="msg";m.textContent="Mmm, todavía no, mi amor. Intenta de nuevo 💭"}
+}
+function finish(){
+ var f=document.getElementById("final");f.classList.add("show");
+ var s=new Date(2025,11,8),n=new Date();
+ var d=Math.max(0,Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-s)/86400000));
+ document.getElementById("days").textContent=d;
+ hearts(30);
+ setTimeout(function(){f.scrollIntoView({behavior:"smooth"})},300);
+}
+function hearts(n){
+ var e=["💗","💖","💕","🤍","💌"];
+ for(var i=0;i<n;i++){(function(i){setTimeout(function(){
+  var h=document.createElement("div");h.className="heart";h.textContent=e[i%e.length];
+  h.style.left=Math.random()*100+"vw";h.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(h);setTimeout(function(){h.remove()},8500);
+ },i*150)})(i)}
+}
+render();
+</script>
+</body>
+</html>
